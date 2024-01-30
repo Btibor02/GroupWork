@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades;
+use App\Models\Service;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,5 +20,6 @@ Route::get('/', function () {
 });
 
 Route::get('/services', function () {
-    return view('services');
+    $services = Service::all();
+    return view('services', ['services' => $services]);
 });

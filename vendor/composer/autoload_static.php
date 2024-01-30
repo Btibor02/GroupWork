@@ -94,6 +94,7 @@ class ComposerStaticInit220f24cd62667cdaae1a8758bc080b02
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
+            'Sushi\\' => 6,
             'Spatie\\LaravelIgnition\\' => 23,
             'Spatie\\Ignition\\' => 16,
             'Spatie\\FlareClient\\' => 19,
@@ -341,6 +342,10 @@ class ComposerStaticInit220f24cd62667cdaae1a8758bc080b02
         'Symfony\\Bridge\\PsrHttpMessage\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/psr-http-message-bridge',
+        ),
+        'Sushi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/calebporzio/sushi/src',
         ),
         'Spatie\\LaravelIgnition\\' => 
         array (
@@ -6876,6 +6881,7 @@ class ComposerStaticInit220f24cd62667cdaae1a8758bc080b02
         'Spatie\\LaravelIgnition\\Views\\BladeSourceMapCompiler' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Views/BladeSourceMapCompiler.php',
         'Spatie\\LaravelIgnition\\Views\\ViewExceptionMapper' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Views/ViewExceptionMapper.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'Sushi\\Sushi' => __DIR__ . '/..' . '/calebporzio/sushi/src/Sushi.php',
         'Symfony\\Bridge\\PsrHttpMessage\\ArgumentValueResolver\\PsrServerRequestResolver' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/ArgumentValueResolver/PsrServerRequestResolver.php',
         'Symfony\\Bridge\\PsrHttpMessage\\EventListener\\PsrResponseListener' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/EventListener/PsrResponseListener.php',
         'Symfony\\Bridge\\PsrHttpMessage\\Factory\\HttpFoundationFactory' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/Factory/HttpFoundationFactory.php',

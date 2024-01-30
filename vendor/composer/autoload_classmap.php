@@ -6299,6 +6299,7 @@ return array(
     'Spatie\\LaravelIgnition\\Views\\BladeSourceMapCompiler' => $vendorDir . '/spatie/laravel-ignition/src/Views/BladeSourceMapCompiler.php',
     'Spatie\\LaravelIgnition\\Views\\ViewExceptionMapper' => $vendorDir . '/spatie/laravel-ignition/src/Views/ViewExceptionMapper.php',
     'Stringable' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+    'Sushi\\Sushi' => $vendorDir . '/calebporzio/sushi/src/Sushi.php',
     'Symfony\\Bridge\\PsrHttpMessage\\ArgumentValueResolver\\PsrServerRequestResolver' => $vendorDir . '/symfony/psr-http-message-bridge/ArgumentValueResolver/PsrServerRequestResolver.php',
     'Symfony\\Bridge\\PsrHttpMessage\\EventListener\\PsrResponseListener' => $vendorDir . '/symfony/psr-http-message-bridge/EventListener/PsrResponseListener.php',
     'Symfony\\Bridge\\PsrHttpMessage\\Factory\\HttpFoundationFactory' => $vendorDir . '/symfony/psr-http-message-bridge/Factory/HttpFoundationFactory.php',
