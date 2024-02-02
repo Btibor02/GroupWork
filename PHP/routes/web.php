@@ -19,7 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/services', function () {
-    $services = Service::all();
-    return view('services', ['services' => $services]);
+Route::controller(ServiceController::class)->group(function () {
+    Route::get('/services', 'get');
+    Route::get('/services/{name}', 'getService')->name('getServiceID');
+
 });

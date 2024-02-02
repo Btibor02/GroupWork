@@ -8,6 +8,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
@@ -16,6 +17,11 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
         <!-- Styles -->
         <style>
@@ -112,30 +118,30 @@
                         <h1 style="font-weight: bold; font-size:2.5rem; padding-bottom:1rem; padding-top:1rem; font-family: Raleway-SemiBold; text-align:center">Select services</h1>
                     </div>
                     <div style="margin-bottom: 2rem; text-align:center">
-                        <button type="button" class="btn btn-info">Featured</button>
-                        <button type="button" class="btn btn-info">Haircut</button>
-                        <button type="button" class="btn btn-info">Beard</button>
-                        <button type="button" class="btn btn-info">Wellbeing</button>
+                        <a href="#/Featured"  class="btn btn-info">Featured</a>
+                        <a href="#/Haircut" class="btn btn-info">Haircut</a>
+                        <a href="#/Beard" class="btn btn-info">Beard</a>
+                        <a href="#/Wellbeing" class="btn btn-info">Wellbeing</a>
                     </div>
                     <div style="margin-bottom: 1.5rem">
-                        <h1 style="font-weight: bold; font-size:1.5rem; padding-bottom:1rem; padding-top:1rem; font-family: Raleway-SemiBold;">Featured</h1>
+                        <h1 id="/Featured" style="font-weight: bold; font-size:1.5rem; padding-bottom:1rem; padding-top:1rem; font-family: Raleway-SemiBold;">Featured</h1>
                         @foreach ($services->where('group', 'Featured') as $service)
-                        <button class="card" href="#">
-                            <div class="card" style="margin-bottom: 0.7rem">
-                                <div class="card-body">
-                                <h3 class="services">{{$service->name}}</h3>
-                                <p class="desc">{{$service->time}}min</p>
-                                <p class="desc">{{$service->desc}}</p>
-                                <br>
-                                <h4 class="price">{{$service->price}} SEK</h4>
+                            <button class="card" onclick="window.location='{{ route('getServiceID',[$service->name]) }}'" id="value">
+                                <div class="card" style="margin-bottom: 0.7rem">
+                                    <div class="card-body">
+                                    <h3 class="services">{{$service->name}}</h3>
+                                    <p class="desc">{{$service->time}}min</p>
+                                    <p class="desc">{{$service->desc}}</p>
+                                    <br>
+                                    <h4 class="price">{{$service->price}} SEK</h4>
+                                    </div>
                                 </div>
-                            </div>
-                        </button>
+                            </button>
                         @endforeach
                     </div>
 
                     <div style="margin-bottom: 1.5rem">
-                        <h1 style="font-weight: bold; font-size:1.5rem; padding-bottom:1rem; padding-top:1rem; font-family: Raleway-SemiBold;">Haircut</h1>
+                        <h1 id="/Haircut" style="font-weight: bold; font-size:1.5rem; padding-bottom:1rem; padding-top:1rem; font-family: Raleway-SemiBold;">Haircut</h1>
 
                         @foreach ($services->where('group', 'Haircut') as $service)
                         <button class="card" href="#">
@@ -153,7 +159,7 @@
                     </div>
 
                     <div style="margin-bottom: 1.5rem">
-                        <h1 style="font-weight: bold; font-size:1.5rem; padding-bottom:1rem; padding-top:1rem; font-family: Raleway-SemiBold;">Beard</h1>
+                        <h1 id="/Beard" style="font-weight: bold; font-size:1.5rem; padding-bottom:1rem; padding-top:1rem; font-family: Raleway-SemiBold;">Beard</h1>
 
                         @foreach ($services->where('group', 'Beard') as $service)
                         <button class="card" href="#">
@@ -172,7 +178,7 @@
                     </div>
 
                     <div style="margin-bottom: 1.5rem">
-                        <h1 style="font-weight: bold; font-size:1.5rem; padding-bottom:1rem; padding-top:1rem; font-family: Raleway-SemiBold;">Wellbeing</h1>
+                        <h1 id="/Wellbeing" style="font-weight: bold; font-size:1.5rem; padding-bottom:1rem; padding-top:1rem; font-family: Raleway-SemiBold;">Wellbeing</h1>
 
                         @foreach ($services->where('group', 'Wellbeing') as $service)
                         <button class="card" href="#">
@@ -193,10 +199,16 @@
                 </div>
                 <div class="col">
                     <div class="card" style="margin-top: 1rem; margin-left: 2rem; height:100%">
-                        <div class="card-body">
-                            <p class="desc"> No services selected</p>
+                        <div id="cartDiv" class="card-body">
+                            @if ($selectedServices != "")
+                                @foreach ($selectedServices as $selectedServiceName => $selectedServicePrice)
+                                    <p class="services"> {{$selectedServiceName}}</p>
+                                @endforeach
+                            @else
+                                <p class="desc">No services selected</p>
+                            @endif
                             <hr style="margin-bottom: 1rem; margin-top: 1rem">
-                            <h3 class="services">Total: {{$total !== 0 ? strval($total) . " SEK" : "Free"}}</h3>
+                            <h3 class="services">Total: </h3>
                         </div>
                       </div>
                 </div>
@@ -220,11 +232,16 @@
               </div>
             </footer>
           </section>
-          </div>
+        </div>
 
 
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function(){
+            setInterval(function(){
+                $("#cartDiv").load(" #cartDiv > *");
+            }, 3000);
+            });
+        </script>
+
     </body>
 </html>
