@@ -33,12 +33,24 @@ class ServiceController extends Controller
 
         if(isset($selectedServicesArray)) {
             if (is_array($selectedServicesArray)) {
-                foreach ($request->input('serviceName') as $requests) {
-                    echo "<script>console. log('Request: " . $requests . "' );</script>";
+                foreach ($selectedServicesArray as $selectedService) {
+                    echo "<script>console. log('Request: " . $selectedService . "' );</script>";
+                    foreach ($services as $service) {
+                        if ($selectedService == $service->name) {
+                            $outputArray[$selectedService] = $service->price;
+                        }
+                    }
                 }
             } else {
                 echo "<script>console. log('Request: " . $selectedServicesArray . "' );</script>";
+                foreach ($services as $service) {
+                    if ($selectedService == $service->name) {
+                        $outputArray[$selectedService] = $service->price;
+                    }
+                }
             }
+        } else {
+            $outputArray = array();
         }
 
 
@@ -79,8 +91,8 @@ class ServiceController extends Controller
         // }
 
 
-
-        return view('services', ['services' => $services, 'selectedServices' => $this->selectedServicesArray]);
+        echo "<script>console. log('Output: " . implode($outputArray) . "' );</script>";
+        return view('services', ['services' => $services, 'selectedServices' => $outputArray]);
         //return back()->with('services', ['services' => $services, 'selectedServices' => $selectedServicesArray]);
     }
 

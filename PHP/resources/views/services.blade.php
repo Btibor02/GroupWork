@@ -1,5 +1,15 @@
 <?php
     $total = 0;
+
+    if (isset($selectedServices)) {
+        if (is_array($selectedServices)) {
+            foreach ( $selectedServices as $selectedServiceName => $selectedServicePrice) {
+                $total += $selectedServicePrice;
+            }
+        } else {
+            $total = $selectedServicePrice;
+        }
+    }
 ?>
 
 
@@ -222,8 +232,9 @@
 
 
                 </div>
-                <div class="col">
-                    <div class="card" style="margin-top: 1rem; margin-left: 2rem; height:100%">
+                <div class="col" style="margin-top: 9rem; margin-bottom: 7rem">
+                    <h1 id="/Featured" style="margin-left: 2rem; font-weight: bold; font-size:1.5rem; padding-bottom:1rem; padding-top:1rem; font-family: Raleway-SemiBold;">Cart</h1>
+                    <div class="card" style="margin-left: 2rem; height:100%">
                         <div id="cartDiv" class="card-body">
                             @if ($selectedServices != "")
                                 @foreach ($selectedServices as $selectedServiceName => $selectedServicePrice)
@@ -233,7 +244,12 @@
                                 <p class="desc">No services selected</p>
                             @endif
                             <hr style="margin-bottom: 1rem; margin-top: 1rem">
-                            <h3 class="services">Total: </h3>
+                            @if ($selectedServices != "")
+                                <h3 class="services">Total:  {{ $total }} SEK</h3>
+                            @else
+                                <h3 class="services">Total:  Free</h3>
+                            @endif
+
                         </div>
                       </div>
                 </div>
@@ -261,11 +277,7 @@
 
 
         <script>
-            $(document).ready(function(){
-                setInterval(function(){
-                    $("#cartDiv").load(" #cartDiv > *");
-                }, 3000);
-            });
+
         </script>
 
     </body>
