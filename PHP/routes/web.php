@@ -21,6 +21,6 @@ Route::get('/', function () {
 
 Route::controller(ServiceController::class)->group(function () {
     Route::get('/services', 'get');
-    Route::get('/services/{name}', 'getService')->name('getServiceID');
+    Route::post('/services', 'getService')->name('getServiceID');
 
 });
