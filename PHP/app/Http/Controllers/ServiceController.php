@@ -23,77 +23,58 @@ class ServiceController extends Controller
     }
 
     public function get() {
-        $services = Service::all();
+        Cache::forever('services', Service::all());
+        $services = Cache::get('services');
         return view('services', ['services' => $services, 'selectedServices' => $this->selectedServicesArray]);
     }
 
     public function getService(Request $request) {
-        $services = Service::all();
+        $services = Cache::get('services');
         $selectedServicesArray = $request->input('serviceName');
+        $cache = Cache::get('selectedServiceCache');
 
-        if(isset($selectedServicesArray)) {
-            if (is_array($selectedServicesArray)) {
-                foreach ($selectedServicesArray as $selectedService) {
-                    echo "<script>console. log('Request: " . $selectedService . "' );</script>";
-                    foreach ($services as $service) {
-                        if ($selectedService == $service->name) {
-                            $outputArray[$selectedService] = $service->price;
-                        }
-                    }
-                }
-            } else {
-                echo "<script>console. log('Request: " . $selectedServicesArray . "' );</script>";
+        $startTime = microtime(true);
+        if ($cache == $selectedServicesArray) {
+            foreach ($selectedServicesArray as $selectedService) {
                 foreach ($services as $service) {
                     if ($selectedService == $service->name) {
                         $outputArray[$selectedService] = $service->price;
                     }
                 }
             }
+            $endTime = microtime(true);
+            $runtime = $endTime - $startTime;
+            echo "<script>console. log('With cache: " . $runtime . "' );</script>";
         } else {
-            $outputArray = array();
+            if(isset($selectedServicesArray)) {
+                if (is_array($selectedServicesArray)) {
+                    foreach ($selectedServicesArray as $selectedService) {
+                        foreach ($services as $service) {
+                            if ($selectedService == $service->name) {
+                                $outputArray[$selectedService] = $service->price;
+                            }
+                        }
+                    }
+                    Cache::put('selectedServiceCache', array_keys($outputArray), 300);
+
+                    $endTime = microtime(true);
+                    $runtime = $endTime - $startTime;
+                    echo "<script>console. log('Without cache: " . $runtime . "' );</script>";
+                } else {
+                    foreach ($services as $service) {
+                        if ($selectedService == $service->name) {
+                            $outputArray[$selectedService] = $service->price;
+                        }
+                    }
+                    Cache::put('selectedServiceCache', array_keys($outputArray), 300);
+                }
+            } else {
+                $outputArray = array();
+            }
         }
-
-
-
-
-
-
-
-
-
-        //foreach ($services as $service) {
-            //if ($request->name == $service->name) {
-                //$servicePrice = $service->price;
-            //}
-        //}
-
-        //$this->postSelectedServices($request->name, $servicePrice);
-        //echo "<script>console. log('Request: " . $request->name . "' );</script>";
-        //foreach (array_keys($this->selectedServicesArray) as $key) {
-            //echo "<script>console. log('Array: " . $key . "' );</script>";
-
-        //}
-
-
-        //Cache::put('selectedServiceCache', $this->selectedServicesArray, 300);
-
-        // $cachedServices = Cache::get('selectedServiceCache');
-        // $typeOfCache = gettype(Cache::has('selectedServiceCache')) ;
-
-        // if (is_array($typeOfCache)) {
-        //     foreach ($cachedServices as $key) {
-        //         array_push($selectedServicesArray, $key);
-        //         echo "<script>console. log('this is a Variable: " . $key . "' );</script>";
-        //     }
-        // } else {
-        //     array_push($selectedServicesArray, $cachedServices);
-        //     echo "<script>console. log('Az else fut le: " . $cachedServices . "' );</script>";
-        // }
-
 
         echo "<script>console. log('Output: " . implode($outputArray) . "' );</script>";
         return view('services', ['services' => $services, 'selectedServices' => $outputArray]);
-        //return back()->with('services', ['services' => $services, 'selectedServices' => $selectedServicesArray]);
     }
 
 

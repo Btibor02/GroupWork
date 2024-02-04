@@ -67,7 +67,7 @@
                     <div class="col col-xs-2 align-self-center">
                         <h1>Price</h1>
                         <br>
-                        <a class="btn btn-success" role="button" aria-disabled="true">ADD TO CART</a>
+                        <a class="btn btn-success" href="window.location='{{ url("/services") }}'" role="button" aria-disabled="true">ADD TO CART</a>
                     </div>
                 </div>
                 <div class="row">
