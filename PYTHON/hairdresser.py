@@ -1,4 +1,3 @@
-
 class Hairdresser:
     def __init__(self):
         self._haircut_services = {
@@ -15,12 +14,9 @@ class Hairdresser:
             "Beard Coloring and Touch-Up": 20
         }
 
-        self._hair_products = {
+        self._products = {
             "Hair Styling Gel": 12,
             "Texturizing Spray": 15,
-        }
-
-        self._beard_products = {
             "Beard Oil": 15,
             "Beard Balm": 18
         }
@@ -31,11 +27,8 @@ class Hairdresser:
     def get_beard_services(self):
         return self._beard_services
 
-    def get_hair_products(self):
-        return self._hair_products
-
-    def get_beard_products(self):
-        return self._beard_products
+    def get_products(self):
+        return self._products
 
     def calculate_price(self, options:list):
         pass
