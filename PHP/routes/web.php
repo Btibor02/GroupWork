@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades;
 use App\Models\Service;
+use App\Http\Controllers\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,7 @@ use App\Models\Service;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('/services');
 });
 
 Route::controller(ServiceController::class)->group(function () {
