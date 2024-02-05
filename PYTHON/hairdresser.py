@@ -31,5 +31,5 @@ class Hairdresser:
         return self._products
 
     def calculate_price(self, options:list):
-        pass
+        return 0
 

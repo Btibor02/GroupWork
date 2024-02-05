@@ -1,32 +1,50 @@
 from hairdresser import Hairdresser
-import sys
+import pickle
 
 def __main__():
     """
-    prompt the user what services he wants
-    with three sections : haircuts, beard care, products
-
     find combination of services in cache and display price
     or
     calculate  and display price
     """
 
+    FILE_NAME = "cache.bin"
+
     hairdresser = Hairdresser()
 
-    user_services = prompt_user(hairdresser)
+    chosen_services = prompt_user(hairdresser)
     
-    print(user_services)
+    print(chosen_services)
+
 
     try:
-        with open(sys.argv[1], "r") as option_logs :
-            cache = option_logs.read()
+        with open(FILE_NAME, "rb") as option_logs :
+            cache = pickle.load(option_logs)
 
 
-    except FileNotFoundError:
-        print("File not found")
+    except :
+        cache = {}
+        print(f"File {FILE_NAME} was not found") 
+
+    finally:
+        if not cache and tuple(chosen_services) in cache.keys():
+            print(f"Price pulled from cache\n{chosen_services} : cache[chosen_services]")
+
+        else:
+            cache[tuple(chosen_services)] = hairdresser.calculate_price(chosen_services)
+            with open(FILE_NAME, "wb") as option_logs:
+                pickle.dump(cache, option_logs)
+
+        # memoization
+        # look into the cache file to see if the combination of services was already chosen and get the price
+        
 
 
 def prompt_user(hairdresser:Hairdresser):
+    """
+    prompt the user what services he wants
+    with three sections : haircuts, beard care, products
+    """
 
     chosen_services = []
 
