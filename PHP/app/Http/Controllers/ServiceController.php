@@ -15,6 +15,7 @@ class ServiceController extends Controller
 
     public function postSelectedServices($name, $price) {
         global $selectedServicesArray;
+        
 
         echo "<script>console. log('Array: " . $selectedServicesArray . "' );</script>";
         $selectedServicesArray[$name] = $price;
@@ -25,10 +26,13 @@ class ServiceController extends Controller
     public function get() {
         Cache::forever('services', Service::all());
         $services = Cache::get('services');
-        return view('services', ['services' => $services, 'selectedServices' => $this->selectedServicesArray]);
+
+        $totalPrice = (Cache::has('totalPriceCache') ? Cache::get('totalPriceCache') : 0);
+        return view('services', ['services' => $services, 'selectedServices' => $this->selectedServicesArray, 'totalPrice' => $totalPrice]);
     }
 
     public function getService(Request $request) {
+        $totalPrice = 0;
         $services = Cache::get('services');
         $selectedServicesArray = $request->input('serviceName');
         $cache = Cache::get('selectedServiceCache');
@@ -42,6 +46,7 @@ class ServiceController extends Controller
                     }
                 }
             }
+            $totalPrice = Cache::get('totalPriceCache', 0);
             $endTime = microtime(true);
             $runtime = $endTime - $startTime;
             echo "<script>console. log('With cache: " . $runtime . "' );</script>";
@@ -52,29 +57,30 @@ class ServiceController extends Controller
                         foreach ($services as $service) {
                             if ($selectedService == $service->name) {
                                 $outputArray[$selectedService] = $service->price;
+                                $totalPrice += $service->price;
                             }
                         }
                     }
-                    Cache::put('selectedServiceCache', array_keys($outputArray), 300);
-
-                    $endTime = microtime(true);
-                    $runtime = $endTime - $startTime;
-                    echo "<script>console. log('Without cache: " . $runtime . "' );</script>";
                 } else {
                     foreach ($services as $service) {
                         if ($selectedService == $service->name) {
                             $outputArray[$selectedService] = $service->price;
+                            $totalPrice = $service->price;
                         }
                     }
-                    Cache::put('selectedServiceCache', array_keys($outputArray), 300);
                 }
+                Cache::put('selectedServiceCache', array_keys($outputArray), 300);
+                Cache::put('totalPriceCache', $totalPrice, 300);
+                $endTime = microtime(true);
+                $runtime = $endTime - $startTime;
+                echo "<script>console. log('Without cache: " . $runtime . "' );</script>";
             } else {
                 $outputArray = array();
             }
         }
 
         echo "<script>console. log('Output: " . implode($outputArray) . "' );</script>";
-        return view('services', ['services' => $services, 'selectedServices' => $outputArray]);
+        return view('services', ['services' => $services, 'selectedServices' => $outputArray, 'totalPrice' => $totalPrice]);
     }
 
 

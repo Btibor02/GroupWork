@@ -1,15 +1,15 @@
 <?php
-    $total = 0;
+    // $totalPrice = 0;
 
-    if (isset($selectedServices)) {
-        if (is_array($selectedServices)) {
-            foreach ( $selectedServices as $selectedServiceName => $selectedServicePrice) {
-                $total += $selectedServicePrice;
-            }
-        } else {
-            $total = $selectedServicePrice;
-        }
-    }
+    // if (isset($selectedServices)) {
+    //     if (is_array($selectedServices)) {
+    //         foreach ( $selectedServices as $selectedServiceName => $selectedServicePrice) {
+    //             $totalPrice += $selectedServicePrice;
+    //         }
+    //     } else {
+    //         $totalPrice = $selectedServicePrice;
+    //     }
+    // }
 ?>
 
 
@@ -38,40 +38,39 @@
             .btn-info {
                 font-family: Raleway-SemiBold;
                 font-size: 20px;
-                color: rgba(91, 192, 222, 0.75);
+                color: #FFF;
                 letter-spacing: 1px;
                 line-height: 15px;
                 border: 2px solid rgba(91, 192, 222, 0.75);
                 border-radius: 40px;
-                background: transparent;
                 transition: all 0.3s ease 0s;
                 margin-right: 1rem;
                 margin-top: 0.5rem;
+                background-color: rgba(60, 166, 199, 0.75)
             }
 
             .btn-info:hover {
                 color: #FFF;
-                background: rgba(72, 156, 182, 0.75);
+                background: rgba(41, 97, 113, 0.75);
                 border: 2px solid rgba(91, 192, 222, 0.75);
             }
 
             .btn-success {
                 font-family: Raleway-SemiBold;
                 font-size: 20px;
-                color: rgba(28, 159, 34, 0.75);
+                color: #FFF;
                 letter-spacing: 1px;
                 line-height: 15px;
-                border: 2px solid rgba(22, 138, 28, 0.75);
                 border-radius: 40px;
-                background: transparent;
                 transition: all 0.3s ease 0s;
                 margin-right: 1rem;
                 margin-top: 0.5rem;
+                background: rgba(55, 126, 31, 0.75);
             }
 
             .btn-success:hover {
                 color: #FFF;
-                background: rgba(47, 118, 23, 0.75);
+                background: rgba(22, 58, 10, 0.75);
                 border: 2px solid rgba(47, 118, 23, 0.75);
             }
 
@@ -105,8 +104,10 @@
                 width: 25rem;
             }
 
-            .btn {
-                border-color: aqua;
+            input.inputField {
+                width: 1.5rem;
+                height: 1.5rem;
+                margin-bottom: -0.5rem;
             }
 
         </style>
@@ -169,7 +170,7 @@
                                         <p class="desc">{{$service->desc}}</p>
                                         <br>
                                         <h4 class="price">{{$service->price}} SEK</h4>
-                                        <input type="checkbox" class="card services btn" id="inputField" value="{{$service->name}}" name="serviceName[]"
+                                        <input type="checkbox" class="card services inputField" id="inputField" value="{{$service->name}}" name="serviceName[]"
                                             @if($selectedServices != "")
                                                 @foreach ($selectedServices as $selectedServiceName => $selectedServicePrice)
                                                     @if($service->name == $selectedServiceName ) checked
@@ -192,7 +193,7 @@
                                     <p class="desc">{{$service->desc}}</p>
                                     <br>
                                     <h4 class="price">{{$service->price}} SEK</h4>
-                                    <input type="checkbox" class="card services btn" id="inputField" value="{{$service->name}}" name="serviceName[]"
+                                    <input type="checkbox" class="card services inputField" id="inputField" value="{{$service->name}}" name="serviceName[]"
                                         @if($selectedServices != "")
                                             @foreach ($selectedServices as $selectedServiceName => $selectedServicePrice)
                                                 @if($service->name == $selectedServiceName ) checked
@@ -214,7 +215,7 @@
                                     <p class="desc">{{$service->desc}}</p>
                                     <br>
                                     <h4 class="price">{{$service->price}} SEK</h4>
-                                    <input type="checkbox" class="card services btn" id="inputField" value="{{$service->name}}" name="serviceName[]"
+                                    <input type="checkbox" class="card services inputField" id="inputField" value="{{$service->name}}" name="serviceName[]"
                                         @if($selectedServices != "")
                                             @foreach ($selectedServices as $selectedServiceName => $selectedServicePrice)
                                                 @if($service->name == $selectedServiceName ) checked
@@ -236,7 +237,7 @@
                                     <p class="desc">{{$service->desc}}</p>
                                     <br>
                                     <h4 class="price">{{$service->price}} SEK</h4>
-                                    <input type="checkbox" class="card services btn" id="inputField" value="{{$service->name}}" name="serviceName[]"
+                                    <input type="checkbox" class="card services inputField" id="inputField" value="{{$service->name}}" name="serviceName[]"
                                         @if($selectedServices != "")
                                             @foreach ($selectedServices as $selectedServiceName => $selectedServicePrice)
                                                 @if($service->name == $selectedServiceName ) checked
@@ -268,7 +269,8 @@
                             @endif
                             <hr style="margin-bottom: 1rem; margin-top: 1rem">
                             @if ($selectedServices != "")
-                                <h3 class="services">Total:  {{ $total }} SEK</h3>
+
+                                <h3 class="services">Total:  {{ $totalPrice }} SEK</h3>
                             @else
                                 <h3 class="services">Total:  Free</h3>
                             @endif
