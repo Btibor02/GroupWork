@@ -1,2 +1,2 @@
-#cache file
-.bin
+#ignore cache file
+*.bin
