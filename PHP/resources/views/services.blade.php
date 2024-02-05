@@ -1,19 +1,3 @@
-<?php
-    // $totalPrice = 0;
-
-    // if (isset($selectedServices)) {
-    //     if (is_array($selectedServices)) {
-    //         foreach ( $selectedServices as $selectedServiceName => $selectedServicePrice) {
-    //             $totalPrice += $selectedServicePrice;
-    //         }
-    //     } else {
-    //         $totalPrice = $selectedServicePrice;
-    //     }
-    // }
-?>
-
-
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -110,10 +94,14 @@
                 margin-bottom: -0.5rem;
             }
 
+            .nav
+
         </style>
     </head>
     <body class="antialiased">
-        <nav class="navbar navbar-expand-lg" style="background-color: #b5a15e;">
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg" style="background-color: #edccab;">
             <div class="d-flex justify-content-start" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
@@ -151,12 +139,16 @@
                     <div>
                         <h1 style="font-weight: bold; font-size:2.5rem; padding-bottom:1rem; padding-top:1rem; font-family: Raleway-SemiBold; text-align:center">Select services</h1>
                     </div>
+
+                    <!-- Navigation buttons-->
                     <div style="margin-bottom: 2rem; text-align:center">
                         <a href="#/Featured"  class="btn btn-info">Featured</a>
                         <a href="#/Haircut" class="btn btn-info">Haircut</a>
                         <a href="#/Beard" class="btn btn-info">Beard</a>
                         <a href="#/Wellbeing" class="btn btn-info">Wellbeing</a>
                     </div>
+
+                    <!-- Services-->
                     <form method="POST" action="{{ url('/services') }}">
                         @csrf
                         <div style="margin-bottom: 1.5rem">
@@ -249,13 +241,14 @@
                             @endforeach
                         </div>
 
+                        <!-- Submit button -->
                         <div style="text-align: center">
                             <button class="btn btn-success" type="submit" id="finalize">Finalize cart</button>
                         </div>
                     </form>
-
-
                 </div>
+
+                <!-- Cart -->
                 <div class="col" style="margin-top: 9rem; margin-bottom: 7rem">
                     <h1 id="/Featured" style="margin-left: 2rem; font-weight: bold; font-size:1.5rem; padding-bottom:1rem; padding-top:1rem; font-family: Raleway-SemiBold;">Cart</h1>
                     <div class="card" style="margin-left: 2rem; height:100%">
@@ -286,7 +279,7 @@
         <!-- Footer -->
         <div style="padding-top: 1%">
             <section class="">
-            <footer class="text-center text-white" style="background-color: #b5a15e;">
+            <footer class="text-center text-white" style="background-color: #edccab;">
               <div class="container p-4 pb-0">
               </div>
               <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">

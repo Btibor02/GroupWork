@@ -11,18 +11,6 @@ use Illuminate\Support\Facades\Cache;
 
 class ServiceController extends Controller
 {
-    public $selectedServicesArray = array();
-
-    public function postSelectedServices($name, $price) {
-        global $selectedServicesArray;
-        
-
-        echo "<script>console. log('Array: " . $selectedServicesArray . "' );</script>";
-        $selectedServicesArray[$name] = $price;
-        echo "<script>console. log('Array2: " . implode($selectedServicesArray) . "' );</script>";
-        return $selectedServicesArray;
-    }
-
     public function get() {
         Cache::forever('services', Service::all());
         $services = Cache::get('services');
@@ -79,7 +67,6 @@ class ServiceController extends Controller
             }
         }
 
-        echo "<script>console. log('Output: " . implode($outputArray) . "' );</script>";
         return view('services', ['services' => $services, 'selectedServices' => $outputArray, 'totalPrice' => $totalPrice]);
     }
 
