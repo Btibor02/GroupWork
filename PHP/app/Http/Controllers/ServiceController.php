@@ -14,9 +14,10 @@ class ServiceController extends Controller
     public function get() {
         Cache::forever('services', Service::all());
         $services = Cache::get('services');
+        $selectedServicesArray = array();
 
         $totalPrice = (Cache::has('totalPriceCache') ? Cache::get('totalPriceCache') : 0);
-        return view('services', ['services' => $services, 'selectedServices' => $this->selectedServicesArray, 'totalPrice' => $totalPrice]);
+        return view('services', ['services' => $services, 'selectedServices' => $selectedServicesArray, 'totalPrice' => $totalPrice]);
     }
 
     public function getService(Request $request) {
