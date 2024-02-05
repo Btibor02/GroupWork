@@ -30,6 +30,14 @@ class Hairdresser:
     def get_products(self):
         return self._products
 
-    def calculate_price(self, options:list):
-        return 0
+    def calculate_price(self, options:tuple):
+        sum = 0
+        all_services = self._haircut_services.copy()
+        all_services.update(self._beard_services)
+        all_services.update(self._products)
+
+        for opt in options:
+            sum += all_services[opt]
+
+        return sum
 

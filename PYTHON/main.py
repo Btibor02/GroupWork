@@ -1,4 +1,5 @@
 from hairdresser import Hairdresser
+from time import time
 import pickle
 
 def __main__():
@@ -7,16 +8,16 @@ def __main__():
     or
     calculate  and display price
     """
-
+    # name of cache file (will be created if none exists)
     FILE_NAME = "cache.bin"
 
     hairdresser = Hairdresser()
 
-    chosen_services = prompt_user(hairdresser)
-    
-    print(chosen_services)
+    # hairdresser menu
+    chosen_services = tuple(prompt_user(hairdresser))    
 
-
+    # memoization part
+    # look into the cache file to see if the combination of services was already chosen and get the price
     try:
         with open(FILE_NAME, "rb") as option_logs :
             cache = pickle.load(option_logs)
@@ -27,16 +28,23 @@ def __main__():
         print(f"File {FILE_NAME} was not found") 
 
     finally:
-        if not cache and tuple(chosen_services) in cache.keys():
-            print(f"Price pulled from cache\n{chosen_services} : cache[chosen_services]")
+        # timer to compare the time it takes with and without memoization
+        start_timer = time()
+
+        if tuple(chosen_services) in cache.keys():
+            print(f"Price pulled from cache\n{chosen_services} : {cache[chosen_services]}")
 
         else:
-            cache[tuple(chosen_services)] = hairdresser.calculate_price(chosen_services)
+            print("Price not found in cache\nComputing price ... ", end = "")
+            cache[chosen_services] = hairdresser.calculate_price(chosen_services)
+            print(f"Done.\n{chosen_services} : {cache[chosen_services]}")
             with open(FILE_NAME, "wb") as option_logs:
                 pickle.dump(cache, option_logs)
 
-        # memoization
-        # look into the cache file to see if the combination of services was already chosen and get the price
+        # stop and print timer
+        timer_time = time() - start_timer
+        print(f"Time it took : {timer_time:.10f}")
+
         
 
 
@@ -68,7 +76,7 @@ def prompt_user(hairdresser:Hairdresser):
                 for service, price in haircut_services.items():
                     print(f"* {service} -- {price}$")
 
-                option = input(">>> ")
+                option = input(">>> ").title()
 
                 if option in haircut_services.keys() :
                     chosen_services.append(option)
@@ -83,7 +91,7 @@ def prompt_user(hairdresser:Hairdresser):
                 for service, price in beard_services.items():
                     print(f"* {service} -- {price}$")
 
-                option = input(">>> ")
+                option = input(">>> ").title()
 
                 if option in beard_services.keys() :
                     chosen_services.append(option)
@@ -98,9 +106,9 @@ def prompt_user(hairdresser:Hairdresser):
                 for service, price in products.items():
                     print(f"* {service} -- {price}$")
 
-                option = input(">>> ")
+                option = input(">>> ").title()
 
-                if option in products.keys() :
+                if option in products.keys():
                     chosen_services.append(option)
                     print(f"\nChoice saved.\
                             \nCart -- {chosen_services}")
@@ -115,6 +123,8 @@ def prompt_user(hairdresser:Hairdresser):
                 \n4. Pay")
 
         user_choice = int(input(">>> "))
+
+    print()
 
     return chosen_services
 
