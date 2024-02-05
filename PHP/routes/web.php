@@ -17,7 +17,7 @@ use App\Http\Controllers\ServiceController;
 */
 
 Route::get('/', function () {
-    return view('/services');
+    return view('/');
 });
 
 Route::controller(ServiceController::class)->group(function () {
