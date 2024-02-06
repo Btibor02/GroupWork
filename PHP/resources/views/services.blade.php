@@ -94,8 +94,6 @@
                 margin-bottom: -0.5rem;
             }
 
-            .nav
-
         </style>
     </head>
     <body class="antialiased">
@@ -168,8 +166,8 @@
                                                     @if($service->name == $selectedServiceName ) checked
                                                     @endif
                                                 @endforeach
-                                            @endif>
-
+                                            @endif
+                                        >
                                     </div>
                                 </div>
                             @endforeach
@@ -243,7 +241,8 @@
 
                         <!-- Submit button -->
                         <div style="text-align: center">
-                            <button class="btn btn-success" type="submit" id="finalize">Finalize cart</button>
+                            <button class="btn btn-success" type="submit" id="finalize" name="finalize">Finalize cart</button>
+                            <button class="btn btn-success" type="submit" id="slowVersion" name="slowVersion">Finalize cart (Slow version)</button>
                         </div>
                     </form>
                 </div>
@@ -253,7 +252,7 @@
                     <h1 id="/Featured" style="margin-left: 2rem; font-weight: bold; font-size:1.5rem; padding-bottom:1rem; padding-top:1rem; font-family: Raleway-SemiBold;">Cart</h1>
                     <div class="card" style="margin-left: 2rem; height:100%">
                         <div id="cartDiv" class="card-body">
-                            @if ($selectedServices != "")
+                            @if ($selectedServices)
                                 @foreach ($selectedServices as $selectedServiceName => $selectedServicePrice)
                                     <p class="services"> {{$selectedServiceName}}</p>
                                 @endforeach
@@ -267,7 +266,6 @@
                             @else
                                 <h3 class="services">Total:  Free</h3>
                             @endif
-
                         </div>
                       </div>
                 </div>
