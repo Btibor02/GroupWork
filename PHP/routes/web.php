@@ -7,7 +7,7 @@ use App\Http\Controllers\ServiceController;
 
 
 Route::get('/', function () {
-    return view('/');
+    return view('services', ['services' => Service::all(), 'selectedServices' => ""]);
 });
 
 Route::controller(ServiceController::class)->group(function () {

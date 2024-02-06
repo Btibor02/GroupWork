@@ -40,6 +40,12 @@ class ServiceController extends Controller
             $runtime = $endTime - $startTime;
             echo "<script>console. log('With cache: " . $runtime . "' );</script>";
         } else {
+
+            if (isset($_POST['slowVersion'])) {
+                sleep(5);
+            }
+
+            
             if(isset($selectedServicesArray)) {
                 if (is_array($selectedServicesArray)) {
                     foreach ($selectedServicesArray as $selectedService) {
