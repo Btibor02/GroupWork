@@ -162,7 +162,7 @@
                                         <h4 class="price">{{$service->price}} SEK</h4>
                                         <input type="checkbox" class="card services inputField" id="inputField" value="{{$service->name}}" name="serviceName[]"
                                             @if($selectedServices != "")
-                                                @foreach ($selectedServices as $selectedServiceName => $selectedServicePrice)
+                                                @foreach ($selectedServices as $selectedServiceName)
                                                     @if($service->name == $selectedServiceName ) checked
                                                     @endif
                                                 @endforeach
@@ -185,7 +185,7 @@
                                     <h4 class="price">{{$service->price}} SEK</h4>
                                     <input type="checkbox" class="card services inputField" id="inputField" value="{{$service->name}}" name="serviceName[]"
                                         @if($selectedServices != "")
-                                            @foreach ($selectedServices as $selectedServiceName => $selectedServicePrice)
+                                            @foreach ($selectedServices as $selectedServiceName)
                                                 @if($service->name == $selectedServiceName ) checked
                                                 @endif
                                             @endforeach
@@ -207,7 +207,7 @@
                                     <h4 class="price">{{$service->price}} SEK</h4>
                                     <input type="checkbox" class="card services inputField" id="inputField" value="{{$service->name}}" name="serviceName[]"
                                         @if($selectedServices != "")
-                                            @foreach ($selectedServices as $selectedServiceName => $selectedServicePrice)
+                                            @foreach ($selectedServices as $selectedServiceName)
                                                 @if($service->name == $selectedServiceName ) checked
                                                 @endif
                                             @endforeach
@@ -229,7 +229,7 @@
                                     <h4 class="price">{{$service->price}} SEK</h4>
                                     <input type="checkbox" class="card services inputField" id="inputField" value="{{$service->name}}" name="serviceName[]"
                                         @if($selectedServices != "")
-                                            @foreach ($selectedServices as $selectedServiceName => $selectedServicePrice)
+                                            @foreach ($selectedServices as $selectedServiceName)
                                                 @if($service->name == $selectedServiceName ) checked
                                                 @endif
                                             @endforeach
@@ -253,7 +253,7 @@
                     <div class="card" style="margin-left: 2rem; height:100%">
                         <div id="cartDiv" class="card-body">
                             @if ($selectedServices)
-                                @foreach ($selectedServices as $selectedServiceName => $selectedServicePrice)
+                                @foreach ($selectedServices as $selectedServiceName)
                                     <p class="services"> {{$selectedServiceName}}</p>
                                 @endforeach
                             @else
