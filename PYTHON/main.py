@@ -4,10 +4,10 @@ import pickle
 
 def __main__():
     """
-    find combination of services in cache and display price
-    or
-    calculate  and display price
+    This program prompts the user for haircut services
+    and computes the prices using memoization
     """
+
     # name of cache file (will be created if none exists)
     FILE_NAME = "cache.bin"
 
@@ -17,12 +17,13 @@ def __main__():
     chosen_services = tuple(prompt_user(hairdresser))    
 
     # memoization part
-    # look into the cache file to see if the combination of services was already chosen and get the price
+    # look into the cache file to see if the combination 
+    # of services was already chosen and get the price
     try:
         with open(FILE_NAME, "rb") as option_logs :
             cache = pickle.load(option_logs)
 
-
+    # create cache file if there is none
     except :
         cache = {}
         print(f"File {FILE_NAME} was not found") 
@@ -46,8 +47,6 @@ def __main__():
         print(f"Time it took : {timer_time:.10f}")
 
         
-
-
 def prompt_user(hairdresser:Hairdresser):
     """
     prompt the user what services he wants
@@ -64,12 +63,13 @@ def prompt_user(hairdresser:Hairdresser):
 
     user_choice = int(input(">>> "))
 
-
+    # user_choice = 4 means pay
     while user_choice != 4:
 
         print(f"\n{'-'*30}\n\nType in one of the following options:\n")
 
         match user_choice:
+            # hairstyle page
             case 1:
                 haircut_services = hairdresser.get_haircut_services()
 
@@ -85,6 +85,7 @@ def prompt_user(hairdresser:Hairdresser):
 
                 else: print("Not a valid option")
 
+            # beard care page
             case 2:
                 beard_services = hairdresser.get_beard_services()
 
@@ -100,6 +101,7 @@ def prompt_user(hairdresser:Hairdresser):
 
                 else: print("Not a valid option")
 
+            # products page
             case 3:
                 products = hairdresser.get_products()
 
