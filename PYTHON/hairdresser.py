@@ -32,6 +32,8 @@ class Hairdresser:
 
     def calculate_price(self, options:tuple):
         sum = 0
+
+        #merge all services together
         all_services = self._haircut_services.copy()
         all_services.update(self._beard_services)
         all_services.update(self._products)

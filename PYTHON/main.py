@@ -1,3 +1,5 @@
+# Author: Antoine Geiger
+
 from hairdresser import Hairdresser
 from time import time
 import pickle
@@ -39,6 +41,7 @@ def __main__():
             print("Price not found in cache\nComputing price ... ", end = "")
             cache[chosen_services] = hairdresser.calculate_price(chosen_services)
             print(f"Done.\n{chosen_services} : {cache[chosen_services]}")
+
             with open(FILE_NAME, "wb") as option_logs:
                 pickle.dump(cache, option_logs)
 
