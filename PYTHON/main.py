@@ -28,7 +28,7 @@ def __main__():
     # create cache file if there is none
     except :
         cache = {}
-        print(f"File {FILE_NAME} was not found") 
+        print(f"File {FILE_NAME} was not found, creating it") 
 
     finally:
         # timer to compare the time it takes with and without memoization
