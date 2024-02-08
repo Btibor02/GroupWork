@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+#ignore cache file
+*.bin
+
+>>>>>>> antoine
 #temporary ~ files
 ~*
 
