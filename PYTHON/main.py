@@ -35,7 +35,7 @@ def __main__():
         # timer to compare the time it takes with and without memoization
         start_timer = time()
 
-        if tuple(chosen_services) in cache.keys():
+        if chosen_services in cache.keys():
             print(f"Price pulled from cache\n{chosen_services} : {cache[chosen_services]}")
 
         else:
