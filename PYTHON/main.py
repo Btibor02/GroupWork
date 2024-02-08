@@ -27,8 +27,9 @@ def __main__():
 
     # create cache file if there is none
     except :
-        cache = {}
         print(f"File {FILE_NAME} was not found, creating it") 
+        with open(FILE_NAME, "wb") as option_logs :
+            cache = {}
 
     finally:
         # timer to compare the time it takes with and without memoization
