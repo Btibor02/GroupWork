@@ -30,7 +30,7 @@ class ServiceController extends Controller
         $startTime = microtime(true);
         if ($cache == $selectedServicesArray) {
             foreach ($selectedServicesArray as $selectedService) {
-                array_push($outputArray, $selectedService); 
+                array_push($outputArray, $selectedService);
             }
             $totalPrice = Cache::get('totalPriceCache', 0);
             $endTime = microtime(true);
@@ -47,7 +47,7 @@ class ServiceController extends Controller
                     foreach ($selectedServicesArray as $selectedService) {
                         foreach ($services as $service) {
                             if ($selectedService == $service->name) {
-                                array_push($outputArray, $selectedService); 
+                                array_push($outputArray, $selectedService);
                                 $totalPrice += $service->price;
                             }
                         }
@@ -55,7 +55,7 @@ class ServiceController extends Controller
                 } else {
                     foreach ($services as $service) {
                         if ($selectedService == $service->name) {
-                            array_push($outputArray, $selectedService); 
+                            array_push($outputArray, $selectedService);
                             $totalPrice = $service->price;
                         }
                     }
